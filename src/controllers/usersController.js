@@ -10,6 +10,14 @@ const createUser = async (req, res) => {
   }
 };
 
+const userLogin = async (req, res) => {
+  try {
+    await User.findByCredentials(req.body.email, req.body.password);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
 const getUser = async (req, res) => {
   try {
     const users = await User.find({});
@@ -43,4 +51,10 @@ const deleteUserById = async (req, res) => {
     res.status(500).send(e);
   }
 };
-module.exports = { createUser, getUser, getUserById, deleteUserById };
+module.exports = {
+  createUser,
+  userLogin,
+  getUser,
+  getUserById,
+  deleteUserById
+};

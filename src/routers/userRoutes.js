@@ -4,6 +4,7 @@ const router = new express.Router();
 
 const {
   createUser,
+  userLogin,
   getUser,
   getUserById,
   deleteUserById
@@ -11,6 +12,7 @@ const {
 
 router
   .post("/users", createUser)
+  .post("/users/login", userLogin)
   .get("/users", getUser)
   .get("/users/:id", getUserById)
   .delete("/users/:id", deleteUserById);
