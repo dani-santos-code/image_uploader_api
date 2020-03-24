@@ -1,0 +1,25 @@
+{
+  "name": "image_uploader",
+  "version": "1.0.0",
+  "description": "An image uploader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dani-santos-code/image_uploader_api.git"
+  },
+  "keywords": [
+    "node",
+    "api",
+    "mongo",
+    "express"
+  ],
+  "author": "Daniele Santos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dani-santos-code/image_uploader_api/issues"
+  },
+  "homepage": "https://github.com/dani-santos-code/image_uploader_api#readme"
+}
