@@ -16,4 +16,10 @@ MongoDB provides a wait to to build custom validators with `validate()`, which i
 
 [Bcryptjs](https://www.npmjs.com/package/bcryptjs) is used to hash plain text to be stored in the DB
 
-A `pre` middleware is used in Mongo in order to hash passwords before saving it to the database
+A `pre` middleware is used in Mongo in order to hash passwords before saving them to the database
+
+## Authentication / Session
+
+For protected routes, JWTs are integrated with the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package
+
+The User model is designed to allow for the storage of several tokens, so the user can keep the session live across differentdevices (e.g. phone, tablet, desktop, etc)

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -23,9 +24,32 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true
+      }
+    }
+  ]
 });
 
+// methods on the instance
+// Do not declare methods using ES6 arrow functions (=>).
+// Arrow functions explicitly prevent binding this
+
+userSchema.methods.generateAuthToken = async function() {
+  const user = this;
+  const token = jwt.sign({ _id: user._id }, "1264asn343dbajhsgdau", {
+    expiresIn: "7 days"
+  });
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
+};
+
+// model methods
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) {
@@ -39,6 +63,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 };
 
 // using middleware to be run before saving User to the database
+
 userSchema.pre("save", async function(next) {
   const user = this;
   if (user.isModified("password")) {
