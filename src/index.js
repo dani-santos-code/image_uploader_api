@@ -7,7 +7,11 @@ const {
   getUser,
   getUserById
 } = require("./controllers/usersController");
-const { createImage } = require("./controllers/imagesController");
+const {
+  createImage,
+  getImage,
+  getImageById
+} = require("./controllers/imagesController");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -23,6 +27,8 @@ app.get("/users", getUser);
 app.get("/users/:id", getUserById);
 
 app.post("/images", createImage);
+app.get("/images", getImage);
+app.get("/images/:id", getImageById);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);

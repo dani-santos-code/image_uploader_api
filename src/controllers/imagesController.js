@@ -8,4 +8,28 @@ const createImage = (req, res) => {
     .catch(err => res.status(400).send(err));
 };
 
-module.exports = { createImage };
+const getImage = (req, res) => {
+  Image.find({})
+    .then(images => {
+      res.send(images);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err });
+    });
+};
+
+const getImageById = (req, res) => {
+  const _id = req.params.id;
+  Image.findById(_id)
+    .then(image => {
+      if (!image) {
+        return res.senStatus(404).send();
+      }
+      res.send(image);
+    })
+    .catch(err => {
+      res.status(500).send({ message: err });
+    });
+};
+
+module.exports = { createImage, getImage, getImageById };
