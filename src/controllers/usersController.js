@@ -14,7 +14,7 @@ const userLogin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findByCredentials(email, password);
-    res.sendStatus(200).send(user);
+    res.status(200).send(user);
   } catch (e) {
     res.sendStatus(400);
   }
