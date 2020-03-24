@@ -3,6 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const { isAuth } = require("../middleware/auth");
 const { upload } = require("../middleware/upload");
+const { Image } = require("../models/Image");
 const {
   createUser,
   userLogin,
@@ -23,6 +24,13 @@ router
     isAuth,
     upload.array("upload", 6),
     (req, res) => {
+      const files = req.files;
+      for (let file of files) {
+        Image.create({
+          path: `/uploads/${file.filename}`,
+          owner: req.user._id
+        });
+      }
       res.send();
     },
     (error, req, res, next) => {
