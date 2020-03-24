@@ -30,3 +30,8 @@ And endpoint for logging out of all sessions is also provided
 
 By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON) in our DB Object, data such as password is not exposed to endpoinst that have access our user object(`req.user`)
 
+
+## File Upload
+
+[Multer](https://www.npmjs.com/package/multer) is being used for handling multipart/form-data when uploading files. It is maintained by the developers of [Express](https://github.com/expressjs).
+

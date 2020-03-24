@@ -52,6 +52,10 @@ const getUserProfile = async (req, res) => {
   res.send(req.user);
 };
 
+const uploadImages = async (req, res) => {
+  res.sendStatus(200);
+};
+
 const deleteUser = async (req, res) => {
   try {
     await req.user.remove();
@@ -66,5 +70,6 @@ module.exports = {
   userLogout,
   userLogoutAll,
   getUserProfile,
+  uploadImages,
   deleteUser
 };
