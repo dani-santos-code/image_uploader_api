@@ -11,10 +11,12 @@ const createUser = async (req, res) => {
 };
 
 const userLogin = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    await User.findByCredentials(req.body.email, req.body.password);
+    const user = await User.findByCredentials(email, password);
+    res.sendStatus(200).send(user);
   } catch (e) {
-    res.status(400).send(e);
+    res.sendStatus(400);
   }
 };
 

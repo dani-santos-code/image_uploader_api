@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
     trim: true,
     lowercase: true,
     validate(value) {
@@ -24,6 +25,18 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
+
+userSchema.statics.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("Unable to log in.");
+  }
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error("Unable to log in.");
+  }
+  return user;
+};
 
 // using middleware to be run before saving User to the database
 userSchema.pre("save", async function(next) {
