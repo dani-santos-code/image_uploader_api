@@ -1,14 +1,18 @@
 const { Image } = require("../models/Image");
 
-const createImage = (req, res) => {
+const createImage = async (req, res) => {
   const image = new Image(req.body);
-  image
-    .save()
-    .then(() => res.status(201).send(image))
-    .catch(err => res.status(400).send(err));
+  try {
+    await image.save();
+    res.status(201).send(image);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 };
 
-const getImage = (req, res) => {
+const getImage = async (req, res) => {
+  try {
+  } catch (e) {}
   Image.find({})
     .then(images => {
       res.send(images);
@@ -18,18 +22,17 @@ const getImage = (req, res) => {
     });
 };
 
-const getImageById = (req, res) => {
+const getImageById = async (req, res) => {
   const _id = req.params.id;
-  Image.findById(_id)
-    .then(image => {
-      if (!image) {
-        return res.senStatus(404).send();
-      }
-      res.send(image);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err });
-    });
+  try {
+    const imageFound = await Image.findById(_id);
+    if (!imageFound) {
+      return res.sendStatus(404).send();
+    }
+    res.send(imageFound);
+  } catch (e) {
+    res.status(500).send({ message: e });
+  }
 };
 
 module.exports = { createImage, getImage, getImageById };

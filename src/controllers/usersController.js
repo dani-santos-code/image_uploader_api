@@ -1,34 +1,34 @@
 const { User } = require("../models/User");
 
-const createUser = (req, res) => {
+const createUser = async (req, res) => {
   const user = new User(req.body);
-  user
-    .save()
-    .then(() => res.status(201).send(user))
-    .catch(err => res.status(400).send(err));
+  try {
+    await user.save();
+    res.status(201).send(user);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 };
 
-const getUser = (req, res) => {
-  User.find({})
-    .then(users => {
-      res.send(users);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err });
-    });
+const getUser = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.send(users);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 
-const getUserById = (req, res) => {
+const getUserById = async (req, res) => {
   const _id = req.params.id;
-  User.findById(_id)
-    .then(user => {
-      if (!user) {
-        return res.senStatus(404).send();
-      }
-      res.send(user);
-    })
-    .catch(err => {
-      res.status(500).send({ message: err });
-    });
+  try {
+    const userById = await User.findById(_id);
+    if (!userById) {
+      return res.sendStatus(404).send();
+    }
+    res.send(userById);
+  } catch (e) {
+    res.status(500).send(e);
+  }
 };
 module.exports = { createUser, getUser, getUserById };
