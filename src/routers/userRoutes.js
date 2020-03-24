@@ -6,6 +6,7 @@ const {
   createUser,
   userLogin,
   userLogout,
+  userLogoutAll,
   getUserProfile,
   getUserById,
   deleteUserById
@@ -15,6 +16,7 @@ router
   .post("/users", createUser)
   .post("/users/login", userLogin)
   .post("/users/logout", isAuth, userLogout)
+  .post("/users/logoutall", isAuth, userLogoutAll)
   .get("/users/me", isAuth, getUserProfile)
   .get("/users/:id", isAuth, getUserById)
   .delete("/users/:id", isAuth, deleteUserById);

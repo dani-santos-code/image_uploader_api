@@ -23,12 +23,23 @@ const userLogin = async (req, res) => {
 };
 
 const userLogout = async (req, res) => {
-  console.log("CALLED");
   try {
     // here we are removing the currentToken from the users array
     req.user.tokens = req.user.tokens.filter(token => {
       return token.token !== req.token;
     });
+    await req.user.save();
+    // here we are updating the User object with the tokens left
+    res.send();
+  } catch (e) {
+    res.sendStatus(500).send();
+  }
+};
+
+const userLogoutAll = async (req, res) => {
+  try {
+    // here we are removing the currentToken from the users array
+    req.user.tokens = [];
     await req.user.save();
     // here we are updating the User object with the tokens left
     res.send();
@@ -78,6 +89,7 @@ module.exports = {
   createUser,
   userLogin,
   userLogout,
+  userLogoutAll,
   getUserProfile,
   getUserById,
   deleteUserById
