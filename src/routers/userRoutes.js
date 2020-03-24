@@ -5,6 +5,7 @@ const { isAuth } = require("../middleware/auth");
 const {
   createUser,
   userLogin,
+  userLogout,
   getUserProfile,
   getUserById,
   deleteUserById
@@ -13,6 +14,7 @@ const {
 router
   .post("/users", createUser)
   .post("/users/login", userLogin)
+  .post("/users/logout", isAuth, userLogout)
   .get("/users/me", isAuth, getUserProfile)
   .get("/users/:id", isAuth, getUserById)
   .delete("/users/:id", isAuth, deleteUserById);

@@ -15,6 +15,7 @@ const isAuth = async (req, res, next) => {
       throw new Error();
     }
     req.user = user;
+    req.token = token;
     // in the middleware, we're alreasdy querying the user
     // so we can append the user object to subsequent requests
     // if the user is Auth
