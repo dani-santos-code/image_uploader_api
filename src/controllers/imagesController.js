@@ -34,5 +34,17 @@ const getImageById = async (req, res) => {
     res.status(500).send({ message: e });
   }
 };
+const deleteImageById = async (req, res) => {
+  const _id = req.params.id;
+  try {
+    const image = await Image.findByIdAndDelete(_id);
+    if (!image) {
+      return res.sendStatus(404).send();
+    }
+    res.send(image);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+};
 
-module.exports = { createImage, getImage, getImageById };
+module.exports = { createImage, getImage, getImageById, deleteImageById };
