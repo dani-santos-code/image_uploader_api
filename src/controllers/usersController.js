@@ -31,6 +31,10 @@ const getUser = async (req, res) => {
   }
 };
 
+const getUserProfile = async (req, res) => {
+  res.send(req.user);
+};
+
 const getUserById = async (req, res) => {
   const _id = req.params.id;
   try {
@@ -58,7 +62,7 @@ const deleteUserById = async (req, res) => {
 module.exports = {
   createUser,
   userLogin,
-  getUser,
+  getUserProfile,
   getUserById,
   deleteUserById
 };

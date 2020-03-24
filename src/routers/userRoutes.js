@@ -5,7 +5,7 @@ const { isAuth } = require("../middleware/auth");
 const {
   createUser,
   userLogin,
-  getUser,
+  getUserProfile,
   getUserById,
   deleteUserById
 } = require("../controllers/usersController");
@@ -13,7 +13,7 @@ const {
 router
   .post("/users", createUser)
   .post("/users/login", userLogin)
-  .get("/users", isAuth, getUser)
+  .get("/users/me", isAuth, getUserProfile)
   .get("/users/:id", isAuth, getUserById)
   .delete("/users/:id", isAuth, deleteUserById);
 
