@@ -53,7 +53,7 @@ const getUserProfile = async (req, res) => {
 };
 
 const uploadImages = async (req, res) => {
-  res.sendStatus(200);
+  res.status(201).send({ message: "Successful upload" });
 };
 
 const deleteUser = async (req, res) => {
