@@ -35,6 +35,12 @@ const userSchema = new mongoose.Schema({
   ]
 });
 
+// this is like saying the user id is the foreign key in the image schema
+userSchema.virtual("images", {
+  ref: "image",
+  localField: "_id",
+  foreignField: "owner"
+});
 // methods on the instance
 // Do not declare methods using ES6 arrow functions (=>).
 // Arrow functions explicitly prevent binding this
@@ -85,6 +91,6 @@ userSchema.pre("save", async function(next) {
   next();
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("user", userSchema);
 
 module.exports = { User };

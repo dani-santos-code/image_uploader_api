@@ -1,7 +1,7 @@
 const { Image } = require("../models/Image");
 
 const createImage = async (req, res) => {
-  const image = new Image(req.body);
+  const image = new Image({ ...req.body, owner: req.user._id });
   try {
     await image.save();
     res.status(201).send(image);
@@ -22,16 +22,17 @@ const getImage = async (req, res) => {
     });
 };
 
-const getImageById = async (req, res) => {
+const getImagesById = async (req, res) => {
   const _id = req.params.id;
   try {
-    const imageFound = await Image.findById(_id);
-    if (!imageFound) {
-      return res.sendStatus(404).send();
+    const image = await Image.findOne({ _id, owner: req.user._id });
+    console.log(image);
+    if (!image) {
+      return res.status(404).send();
     }
-    res.send(imageFound);
+    res.send(image);
   } catch (e) {
-    res.status(500).send({ message: e });
+    res.sendStatus(500).send();
   }
 };
 const deleteImageById = async (req, res) => {
@@ -47,4 +48,4 @@ const deleteImageById = async (req, res) => {
   }
 };
 
-module.exports = { createImage, getImage, getImageById, deleteImageById };
+module.exports = { createImage, getImage, getImagesById, deleteImageById };
