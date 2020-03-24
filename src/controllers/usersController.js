@@ -52,10 +52,6 @@ const getUserProfile = async (req, res) => {
   res.send(req.user);
 };
 
-const uploadImages = async (req, res) => {
-  res.status(201).send({ message: "Successful upload" });
-};
-
 const deleteUser = async (req, res) => {
   try {
     await req.user.remove();
@@ -70,6 +66,5 @@ module.exports = {
   userLogout,
   userLogoutAll,
   getUserProfile,
-  uploadImages,
   deleteUser
 };

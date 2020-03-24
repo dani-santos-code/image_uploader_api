@@ -9,7 +9,6 @@ const {
   userLogout,
   userLogoutAll,
   getUserProfile,
-  uploadImages,
   deleteUser
 } = require("../controllers/usersController");
 
@@ -19,7 +18,16 @@ router
   .post("/users/logout", isAuth, userLogout)
   .post("/users/logoutall", isAuth, userLogoutAll)
   .get("/users/me", isAuth, getUserProfile)
-  .post("/users/me/upload", upload.single("upload"), uploadImages)
+  .post(
+    "/users/me/upload",
+    upload.single("upload"),
+    (req, res) => {
+      res.send();
+    },
+    (error, req, res, next) => {
+      res.status(400).send({ error: error.message });
+    }
+  )
   .delete("/users/me", isAuth, deleteUser);
 
 module.exports = router;
