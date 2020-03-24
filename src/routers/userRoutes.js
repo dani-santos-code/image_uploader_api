@@ -21,7 +21,7 @@ router
   .post(
     "/users/me/upload",
     isAuth,
-    upload.single("upload"),
+    upload.array("upload", 6),
     (req, res) => {
       res.send();
     },
