@@ -14,6 +14,6 @@ router
   .post("/images", isAuth, createImage)
   .get("/images", isAuth, getAllImages)
   .get("/images/:id", isAuth, getImagesById)
-  .delete("/images/:id", deleteImageById);
+  .delete("/images/:id", isAuth, deleteImageById);
 
 module.exports = router;

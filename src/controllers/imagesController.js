@@ -27,7 +27,6 @@ const getImagesById = async (req, res) => {
   const _id = req.params.id;
   try {
     const image = await Image.findOne({ _id, owner: req.user._id });
-    console.log(image);
     if (!image) {
       return res.status(404).send();
     }
@@ -37,13 +36,15 @@ const getImagesById = async (req, res) => {
   }
 };
 const deleteImageById = async (req, res) => {
-  const _id = req.params.id;
   try {
-    const image = await Image.findByIdAndDelete(_id);
-    if (!image) {
+    const imageByUserId = await Image.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user._id
+    });
+    if (!imageByUserId) {
       return res.sendStatus(404).send();
     }
-    res.send(image);
+    res.send({ message: "Successfully deleted." });
   } catch (e) {
     res.status(500).send(e);
   }
