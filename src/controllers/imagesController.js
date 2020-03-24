@@ -10,6 +10,17 @@ const createImage = async (req, res) => {
   }
 };
 
+const createImageOnUpload = async (req, res) => {
+  const files = req.files;
+  for (let file of files) {
+    Image.create({
+      path: `/uploads/${file.filename}`,
+      owner: req.user._id
+    });
+  }
+  res.send();
+};
+
 const getAllImages = async (req, res) => {
   try {
     const images = await Image.find({ owner: req.user._id });
@@ -50,4 +61,10 @@ const deleteImageById = async (req, res) => {
   }
 };
 
-module.exports = { createImage, getAllImages, getImagesById, deleteImageById };
+module.exports = {
+  createImage,
+  createImageOnUpload,
+  getAllImages,
+  getImagesById,
+  deleteImageById
+};
