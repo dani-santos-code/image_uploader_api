@@ -2,21 +2,15 @@ const express = require("express");
 const morgan = require("morgan");
 const userRouter = require("./routers/userRoutes");
 const imageRouter = require("./routers/imageRoutes");
-
 require("./db/mongoose"); // this allows us to make sure we're connecting to the DB
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
-// it parses incoming json to a JS object
+app.use(express.json()); // it parses incoming json to a JS object
 app.use(morgan("dev"));
 
-// endpoints
-// USERS
 app.use(userRouter);
-
-// IMAGES
 app.use(userRouter);
 app.use(imageRouter);
 
