@@ -30,7 +30,7 @@ const userLogout = async (req, res) => {
     });
     await req.user.save();
     // here we are updating the User object with the tokens left
-    res.send();
+    res.send("Successfully logged out");
   } catch (e) {
     res.sendStatus(500).send();
   }
@@ -42,7 +42,7 @@ const userLogoutAll = async (req, res) => {
     req.user.tokens = [];
     await req.user.save();
     // here we are updating the User object with the tokens left
-    res.send();
+    res.send("Successfully logged out");
   } catch (e) {
     res.sendStatus(500).send();
   }

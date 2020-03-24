@@ -39,6 +39,18 @@ const userSchema = new mongoose.Schema({
 // Do not declare methods using ES6 arrow functions (=>).
 // Arrow functions explicitly prevent binding this
 
+// this allows us to choose what to display to enduser
+// this is the iunfo to be exposed publicly
+userSchema.methods.toJSON = function() {
+  const user = this;
+  const userObj = user.toObject();
+
+  delete userObj.password;
+  delete userObj.tokens;
+
+  return userObj;
+};
+
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
   const token = jwt.sign({ _id: user._id }, "1264asn343dbajhsgdau", {
