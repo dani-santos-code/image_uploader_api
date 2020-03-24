@@ -6,3 +6,5 @@ const Image = mongoose.model("Image", {
     required: true
   }
 });
+
+module.exports = { Image };
