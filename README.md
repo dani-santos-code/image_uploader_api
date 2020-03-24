@@ -22,4 +22,11 @@ A `pre` middleware is used in Mongo in order to hash passwords before saving the
 
 For protected routes, JWTs are integrated with the [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package
 
-The User model is designed to allow for the storage of several tokens, so the user can keep the session live across differentdevices (e.g. phone, tablet, desktop, etc)
+The User model is designed to allow for the storage of several tokens, so the user can keep the session live across different devices (e.g. phone, tablet, desktop, etc)
+
+And endpoint for logging out of all sessions is also provided
+
+## Public Profile
+
+By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toJSON) in our DB Object, data such as password is not exposed to endpoinst that have access our user object(`req.user`)
+

@@ -48,39 +48,14 @@ const userLogoutAll = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.send(users);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-};
-
 const getUserProfile = async (req, res) => {
   res.send(req.user);
 };
 
-const getUserById = async (req, res) => {
-  const _id = req.params.id;
+const deleteUser = async (req, res) => {
   try {
-    const userById = await User.findById(_id);
-    if (!userById) {
-      return res.sendStatus(404).send();
-    }
-    res.send(userById);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-};
-const deleteUserById = async (req, res) => {
-  const _id = req.params.id;
-  try {
-    const user = await User.findByIdAndDelete(_id);
-    if (!user) {
-      return res.sendStatus(404).send();
-    }
-    res.send(user);
+    await req.user.remove();
+    res.send(req.user);
   } catch (e) {
     res.status(500).send(e);
   }
@@ -91,6 +66,5 @@ module.exports = {
   userLogout,
   userLogoutAll,
   getUserProfile,
-  getUserById,
-  deleteUserById
+  deleteUser
 };

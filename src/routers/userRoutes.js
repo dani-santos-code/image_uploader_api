@@ -8,8 +8,7 @@ const {
   userLogout,
   userLogoutAll,
   getUserProfile,
-  getUserById,
-  deleteUserById
+  deleteUser
 } = require("../controllers/usersController");
 
 router
@@ -18,7 +17,6 @@ router
   .post("/users/logout", isAuth, userLogout)
   .post("/users/logoutall", isAuth, userLogoutAll)
   .get("/users/me", isAuth, getUserProfile)
-  .get("/users/:id", isAuth, getUserById)
-  .delete("/users/:id", isAuth, deleteUserById);
+  .delete("/users/me", isAuth, deleteUser);
 
 module.exports = router;
