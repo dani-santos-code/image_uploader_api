@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Image } = require("./Image");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -80,8 +81,14 @@ userSchema.statics.findByCredentials = async (email, password) => {
   return user;
 };
 
-// using middleware to be run before saving User to the database
+//middleware to delete users tasks when user is removed
+userSchema.pre("remove", async function(next) {
+  const user = this;
+  await Image.deleteMany({ owner: user._id });
+  next();
+});
 
+// using middleware to be run before saving User to the database
 userSchema.pre("save", async function(next) {
   const user = this;
   if (user.isModified("password")) {
