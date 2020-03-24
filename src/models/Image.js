@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 
-const imageSchema = new mongoose.Schema({
-  path: {
-    type: String,
-    required: true
+const imageSchema = new mongoose.Schema(
+  {
+    path: {
+      type: String,
+      required: true
+    },
+    owner: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "user"
+    }
   },
-  owner: {
-    type: mongoose.SchemaTypes.ObjectId,
-    required: true,
-    ref: "user"
-  }
-});
+  { timestamps: true }
+);
 
 const Image = mongoose.model("image", imageSchema);
 

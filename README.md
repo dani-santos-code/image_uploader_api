@@ -33,3 +33,10 @@ By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 ## File Upload
 
 [Multer](https://www.npmjs.com/package/multer) is being used for handling multipart/form-data when uploading files. It is maintained by the developers of [Express](https://github.com/expressjs).
+
+## File Upload Security
+
+- Only uploads of files with mimetype `png`, `jpeg`, and `jpeg` are allowed in this api
+- The uploaded file is not larger than 2MB as specified
+- Zip upload is not supported
+- The library `hash-generator` in combination with `Date.now()`as a timestamp so the file has a new name when stored on the OS.

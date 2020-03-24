@@ -20,6 +20,7 @@ router
   .get("/users/me", isAuth, getUserProfile)
   .post(
     "/users/me/upload",
+    isAuth,
     upload.single("upload"),
     (req, res) => {
       res.send();

@@ -1,14 +1,20 @@
 const multer = require("multer");
 const createHash = require("hash-generator");
 
-const upload = multer({
-  dest: "images/",
-  limits: {
-    fileSize: 2000000 // 2megabytes
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/uploads/images");
   },
   filename: (req, file, cb) => {
     const fileName = `${Date.now()} ${createHash(8)} ${file.originalname}`;
     cb(null, fileName);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 2000000 // 2megabytes
   },
   fileFilter: (req, file, cb) => {
     if (
@@ -24,4 +30,4 @@ const upload = multer({
   }
 });
 
-module.exports = { upload };
+module.exports = { upload, storage };

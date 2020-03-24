@@ -4,37 +4,48 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Image } = require("./Image");
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Invalid Email");
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid Email");
+        }
       }
-    }
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true
+        }
       }
-    }
-  ]
-});
+    ],
+    imagePaths: [
+      {
+        path: {
+          type: String,
+          required: true
+        }
+      }
+    ]
+  },
+  { timestamps: true }
+);
 
 // this is like saying the user id is the foreign key in the image schema
 userSchema.virtual("images", {
