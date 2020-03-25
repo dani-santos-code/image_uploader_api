@@ -55,7 +55,7 @@ By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## API Endpoints
 
-Please refer to the [Endpoints doc]("./../ENDPOINTS.MD") to get a more detailed description of endpoints and what they return
+Please refer to the [Endpoints doc]("https://github.com/dani-santos-code/image_uploader_api/blob/master/ENDPOINTS.MD")to get a more detailed description of endpoints and what they return
 
 ```
 POST /api/v1/users
@@ -105,7 +105,3 @@ DELETE /api/v1/images/:id
 ### Adding more Tests
 
 - More tests should be added using a mock library.
-
-```
-
-```
