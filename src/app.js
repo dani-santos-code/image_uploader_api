@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json()); // it parses incoming json to a JS object
 app.use(morgan("dev"));
 
-app.use(userRouter);
-app.use(imageRouter);
+app.use("/api/v1", userRouter);
+app.use("/api/v1", imageRouter);
 
 module.exports = app;
