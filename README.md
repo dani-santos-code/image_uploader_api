@@ -55,7 +55,7 @@ By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 
 ## API Endpoints
 
-Please refer to the [Endpoints]("https://github.com/dani-santos-code/image_uploader_api/blob/master/ENDPOINTS.MD") doc to get a more detailed description of endpoints and what they return
+Please refer to the [Endpoints]("ENDPOINTS.MD") doc to get a more detailed description of endpoints and what they return
 
 ```
 POST /api/v1/users
