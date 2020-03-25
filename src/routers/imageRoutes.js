@@ -3,18 +3,15 @@ const express = require("express");
 const router = new express.Router();
 const { isAuth } = require("../middleware/auth");
 const { upload } = require("../middleware/upload");
-const { Image } = require("../models/Image");
 const {
-  createImage,
   createImageOnUpload,
-  getAllImages,
+  getAllUsersImages,
   getImagesById,
   deleteImageById
 } = require("../controllers/imagesController");
 
 router
-  .post("/images", isAuth, createImage)
-  .get("/images", isAuth, getAllImages)
+  .get("/images", isAuth, getAllUsersImages)
   .post(
     "/images/me/upload",
     isAuth,

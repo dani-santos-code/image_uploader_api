@@ -55,7 +55,7 @@ const getUserProfile = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await req.user.remove();
-    res.send(req.user);
+    res.send({ message: `Successfully deleted ${req.user.name}.` });
   } catch (e) {
     res.status(500).send(e);
   }

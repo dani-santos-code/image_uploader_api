@@ -1,36 +1,32 @@
 const { Image } = require("../models/Image");
 
-const createImage = async (req, res) => {
-  const image = new Image({ ...req.body, owner: req.user._id });
-  try {
-    await image.save();
-    res.status(201).send(image);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-};
-
 const createImageOnUpload = async (req, res) => {
   const files = req.files;
   for (let file of files) {
-    Image.create({
+    const image = await Image.create({
+      ...req.body,
       path: `/uploads/${file.filename}`,
       owner: req.user._id
     });
+    try {
+      await image.save();
+      res.status(201).send(image);
+    } catch (e) {
+      res.status(400).send(e);
+    }
   }
   res.send();
 };
 
-const getAllImages = async (req, res) => {
+const getAllUsersImages = async (req, res) => {
   try {
     const images = await Image.find({ owner: req.user._id });
-    console.log(images);
     if (!images) {
       return res.status(404).send();
     }
     res.send(images);
   } catch (e) {
-    res.sendStatus(500).send();
+    res.sendStatus(500).send({ error: e });
   }
 };
 
@@ -62,9 +58,8 @@ const deleteImageById = async (req, res) => {
 };
 
 module.exports = {
-  createImage,
   createImageOnUpload,
-  getAllImages,
+  getAllUsersImages,
   getImagesById,
   deleteImageById
 };

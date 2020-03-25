@@ -34,14 +34,6 @@ const userSchema = new mongoose.Schema(
           required: true
         }
       }
-    ],
-    imagePaths: [
-      {
-        path: {
-          type: String,
-          required: true
-        }
-      }
     ]
   },
   { timestamps: true }
