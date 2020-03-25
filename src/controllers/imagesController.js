@@ -2,20 +2,17 @@ const { Image } = require("../models/Image");
 
 const createImageOnUpload = async (req, res) => {
   const files = req.files;
-  for (let file of files) {
-    const image = await Image.create({
-      ...req.body,
-      path: `/uploads/${file.filename}`,
-      owner: req.user._id
-    });
-    try {
-      await image.save();
-      res.status(201).send(image);
-    } catch (e) {
-      res.status(400).send(e);
+  try {
+    for (let file of files) {
+      Image.create({
+        path: `/uploads/${file.filename}`,
+        owner: req.user._id
+      });
     }
+    res.send({ message: `Successful upload of ${files.length} image(s)` });
+  } catch (e) {
+    res.send({ error: e.message });
   }
-  res.send();
 };
 
 const getAllUsersImages = async (req, res) => {
