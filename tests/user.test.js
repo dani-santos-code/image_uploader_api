@@ -55,3 +55,34 @@ test("Should get profile for given user", async () => {
     .send()
     .expect(200);
 });
+
+test("Should not get profile if no token is provided", async () => {
+  await request(app)
+    .get("/users/me")
+    .send()
+    .expect(401);
+});
+
+test("Should not get profile if token is invalid", async () => {
+  await request(app)
+    .get("/users/me")
+    .set("Authorization", `Bearer 8*dadjzdshusgfa`)
+    .send()
+    .expect(401);
+});
+
+test("Should delete account for authenticated user", async () => {
+  await request(app)
+    .delete("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send()
+    .expect(200, { message: `Successfully deleted ${userOne.name}.` });
+});
+
+test("Should not delete account if not account owner", async () => {
+  await request(app)
+    .delete("/users/me")
+    .set("Authorization", `Bearer 9q827sha8dyasdsa`)
+    .send()
+    .expect(401);
+});
