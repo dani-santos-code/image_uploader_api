@@ -39,4 +39,16 @@ By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 - Only uploads of files with mimetype `png`, `jpeg`, and `jpeg` are allowed in this api
 - The uploaded file is not larger than 2MB as specified
 - Zip upload is not supported
-- The library `hash-generator` in combination with `Date.now()`as a timestamp so the file has a new name when stored on the OS.
+- The library `hash-generator` is used in combination with `Date.now()`as a timestamp so the file has a new name when stored on the OS.
+
+## Sensitive Data
+
+- Upon request, I can provide you with a `.env`file that contains environment variables to run the project.
+
+## Testing
+
+- This project uses [Jest](https://jestjs.io/) for testing (A zero configuration testing framework), which makes it easy to set up.
+
+- The assertion library used for HTTP tests is [SuperTest](https://www.npmjs.com/package/supertest)
+
+- To run tests, run `npm test` (Once again, an `.env.test`should be provided. Please ping me for it.)
