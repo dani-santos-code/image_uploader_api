@@ -18,7 +18,11 @@ router
     upload.array("upload", 6),
     createImageOnUpload,
     (error, req, res, next) => {
-      res.status(400).send({ error: error.message });
+      res.status(400).send({
+        error:
+          error.message +
+          ". You can only upload up to 6 images and max file size is 2MBs"
+      });
     }
   )
   .get("/images/:id", isAuth, getImagesById)
