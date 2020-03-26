@@ -41,6 +41,8 @@ By using [toJSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refere
 - Zip upload is not supported
 - The library `hash-generator` is used in combination with `Date.now()`as a timestamp so the file has a new name when stored on the OS.
 
+_As per [OWASP's](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) specs._
+
 ## Sensitive Data
 
 - Upon request, I can provide you with a `.env`file that contains environment variables to run the project.
