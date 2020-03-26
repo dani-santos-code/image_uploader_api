@@ -19,7 +19,7 @@ beforeEach(async () => {
 
 test("Should sign up a new user", async () => {
   await request(app)
-    .post("/users")
+    .post("/api/v1/users")
     .send({
       name: "Mark Ronson",
       email: "mark@mark.com",
@@ -30,7 +30,7 @@ test("Should sign up a new user", async () => {
 
 test("Should log in existing user", async () => {
   await request(app)
-    .post("/users/login")
+    .post("/api/v1/users/login")
     .send({
       email: userOne.email,
       password: userOne.password
@@ -40,7 +40,7 @@ test("Should log in existing user", async () => {
 
 test("Should now allow non-existing user", async () => {
   await request(app)
-    .post("/users/login")
+    .post("/api/v1/users/login")
     .send({
       email: "wrongemail@wrong.com",
       password: "6ahjYSgK"
@@ -50,7 +50,7 @@ test("Should now allow non-existing user", async () => {
 
 test("Should get profile for given user", async () => {
   await request(app)
-    .get("/users/me")
+    .get("/api/v1/users/me")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200);
@@ -58,14 +58,14 @@ test("Should get profile for given user", async () => {
 
 test("Should not get profile if no token is provided", async () => {
   await request(app)
-    .get("/users/me")
+    .get("/api/v1/users/me")
     .send()
     .expect(401);
 });
 
 test("Should not get profile if token is invalid", async () => {
   await request(app)
-    .get("/users/me")
+    .get("/api/v1/users/me")
     .set("Authorization", `Bearer 8*dadjzdshusgfa`)
     .send()
     .expect(401);
@@ -73,7 +73,7 @@ test("Should not get profile if token is invalid", async () => {
 
 test("Should delete account for authenticated user", async () => {
   await request(app)
-    .delete("/users/me")
+    .delete("/api/v1/users/me")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200, { message: `Successfully deleted ${userOne.name}.` });
@@ -81,7 +81,7 @@ test("Should delete account for authenticated user", async () => {
 
 test("Should not delete account if not account owner", async () => {
   await request(app)
-    .delete("/users/me")
+    .delete("/api/v1/users/me")
     .set("Authorization", `Bearer 9q827sha8dyasdsa`)
     .send()
     .expect(401);
