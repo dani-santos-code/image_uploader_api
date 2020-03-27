@@ -2,6 +2,7 @@ const request = require("supertest");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const app = require("../src/app");
+const { User } = require("../src/models/User");
 
 const userOneId = new mongoose.Types.ObjectId();
 const userOne = {
@@ -18,7 +19,7 @@ beforeEach(async () => {
 });
 
 test("Should sign up a new user", async () => {
-  await request(app)
+  const response = await request(app)
     .post("/api/v1/users")
     .send({
       name: "Mark Ronson",
@@ -26,19 +27,43 @@ test("Should sign up a new user", async () => {
       password: "passTest678"
     })
     .expect(201);
+  // Assert that the DB was changed correctly
+
+  //New user with the same id as the id we're getting back
+  const user = await User.findById(response.body.user._id);
+
+  expect(user).not.toBeNull();
+
+  // Assertion about the response boody
+  // we expetc our body to match the info we retrieve from the DB
+  // after querying for the user
+  expect(response.body).toMatchObject({
+    user: {
+      name: "Mark Ronson",
+      email: "mark@mark.com"
+    },
+    token: user.tokens[0].token
+  });
+  // test if the password is being hashed, meaning, it's not stored with plain password
+
+  expect(user.password).not.toBe("passTest678");
 });
 
 test("Should log in existing user", async () => {
-  await request(app)
+  const response = await request(app)
     .post("/api/v1/users/login")
     .send({
       email: userOne.email,
       password: userOne.password
     })
     .expect(200);
+
+  const user = await User.findById(response.body.user._id);
+
+  expect(response.body.token).toBe(user.tokens[1].token);
 });
 
-test("Should now allow non-existing user", async () => {
+test("Should not allow non-existing user", async () => {
   await request(app)
     .post("/api/v1/users/login")
     .send({
@@ -71,12 +96,17 @@ test("Should not get profile if token is invalid", async () => {
     .expect(401);
 });
 
+// validate the user is removed
 test("Should delete account for authenticated user", async () => {
   await request(app)
     .delete("/api/v1/users/me")
     .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
     .send()
     .expect(200, { message: `Successfully deleted ${userOne.name}.` });
+
+  const user = await User.findById(userOneId);
+
+  expect(user).toBeNull();
 });
 
 test("Should not delete account if not account owner", async () => {
