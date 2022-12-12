@@ -29,7 +29,7 @@
   "homepage": "https://github.com/dani-santos-code/image_uploader_api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "hash-generator": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.6",
